@@ -1,5 +1,4 @@
 import { ReactElement, useEffect, useMemo, useState } from "react";
-import "./App.css";
 import {
   Dataset,
   FileDataset,
@@ -7,6 +6,7 @@ import {
   WordOccurrences,
   submitDataset,
 } from "./Api";
+import "./App.css";
 
 export function App() {
   const [dataset, setDataset] = useState<Dataset>();
@@ -61,12 +61,12 @@ function Cloud({ occurrences }: { occurrences: WordOccurrences[] }) {
   const maxOccurrence = useMemo(
     () =>
       occurrences.map((o) => o.occurrences).reduce((a, b) => Math.max(a, b)),
-    [occurrences],
+    [occurrences]
   );
   const minOccurrence = useMemo(
     () =>
       occurrences.map((o) => o.occurrences).reduce((a, b) => Math.min(a, b)),
-    [occurrences],
+    [occurrences]
   );
 
   const normalize = (o: number) =>
@@ -75,7 +75,10 @@ function Cloud({ occurrences }: { occurrences: WordOccurrences[] }) {
   return (
     <div className="Cloud">
       {occurrences.map(({ word, occurrences }) => (
-        <span style={{ fontSize: 10 + 30 * normalize(occurrences) }}>
+        <span
+          key={`${word}-${occurrences}`}
+          style={{ fontSize: 10 + 30 * normalize(occurrences) }}
+        >
           {word}
         </span>
       ))}
